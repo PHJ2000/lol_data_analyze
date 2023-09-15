@@ -675,5 +675,6 @@ selected_team = st.selectbox('Select a team:', team_list)
 st.write(f"You selected {selected_team}")
 st.write(selected_team)
 if st.button('Analyze'):
+    heatma(data)
     analyze_and_visualize(data, selected_team)
 
