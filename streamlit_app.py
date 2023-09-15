@@ -3,7 +3,10 @@ import streamlit as st
 import pandas as pd
 
 # Load the data
-data = pd.read_csv('2023_LoL_match_data.csv')
+uploaded_file = st.file_uploader("CSV 파일을 업로드하세요", type='csv')
+if uploaded_file is not None:
+    data = pd.read_csv(uploaded_file)
+#data = pd.read_csv('2023_LoL_match_data.csv')
 
 def heatma(data):
     features = ['wardsplaced', 'wardskilled', 'gamelength', 'result', 
@@ -255,7 +258,7 @@ def first_objectives_win_rate_percentage(data, teamname):
         'first_tower_percentile': first_tower_percentile
     }
 
-print(first_objectives_win_rate_percentage(data,'MS Company'))
+#print(first_objectives_win_rate_percentage(data,'MS Company'))
 
 
 
