@@ -11,8 +11,8 @@ import seaborn as sns
 uploaded_file = st.file_uploader("CSV 파일을 업로드하세요", type='csv')
 if uploaded_file is not None:
     data = pd.read_csv(uploaded_file)
-#data = pd.read_csv('2023_LoL_match_data.csv')
-team_list = data['teamname'].unique().tolist()
+    team_list = data['teamname'].unique().tolist()
+
 # Streamlit 앱 시작
 st.title('Team Champion Analysis')
 
@@ -32,7 +32,7 @@ def heatma(data):
     plt.figure(figsize=(14, 12))
     sns.heatmap(correlation_matrix, annot=True, cmap="coolwarm", linewidths=0.5, fmt=".3f")
     plt.title("Feature Correlation Matrix")
-    plt.show()
+    st.pyplot()
 
 
 
@@ -87,7 +87,7 @@ def visualize_ward_patterns(team_data, ward_results):
     ax.legend()
 
     fig.tight_layout()
-    plt.show()
+    st.pyplot()
 
 # 사용 예:
 #team_data = data[data['teamname'] == 'Klanik Esport']
@@ -151,7 +151,7 @@ def visualize_game_length_win_rate(team_data, game_length_results):
     ax.legend()
 
     fig.tight_layout()
-    plt.show()
+    st.pyplot()
 
 # 사용 예:
 #team_data = data[data['teamname'] == 'Klanik Esport']
@@ -206,7 +206,7 @@ def visualize_first_objectives(team_data, objectives_results):
     ax.legend()
 
     fig.tight_layout()
-    plt.show()
+    st.pyplot()
 
 # 사용 예:
 #team_data = data[data['teamname'] == 'MS Company']
@@ -283,7 +283,7 @@ def visualize_first_objectives_win_rate(objectives_win_rate_results, teamname):
     ax.legend()
 
     fig.tight_layout()
-    plt.show()
+    st.pyplot()
 
 
 
@@ -332,19 +332,12 @@ def visualize_kill_participation(kill_participation_results, teamname):
     plt.title(f'Player Kill Participation Rate for {teamname}')
     plt.xticks(rotation=45)
     plt.tight_layout()
-    plt.show()
+    st.pyplot()
 
 # 사용 예:
 #kill_participation_results = kill_participation_percentage(data, 'ViV Esport')
 #visualize_kill_participation(kill_participation_results, 'ViV Esport')
 
-
-
-
-
-'''
-딕셔너리로 반환해줌
-'''
 
 def team_gold_and_xp_read_percentage(data, teamname):
     team_data = data[data['teamname'] == teamname]
@@ -408,7 +401,7 @@ def visualize_team_gold_and_xp_lead(lead_results, teamname):
     plt.xlabel('Metrics')
     plt.title(f'Gold and XP Lead Analysis for {teamname}')
     plt.tight_layout()
-    plt.show()
+    st.pyplot()
 
 # 사용 예:
 #lead_results = team_gold_and_xp_read_percentage(data, 'beGenius ESC')
@@ -466,7 +459,7 @@ def visualize_tower_preference(tower_results, teamname):
     plt.xlabel('Tower Categories')
     plt.title(f'Tower Preference Analysis for {teamname}')
     plt.tight_layout()
-    plt.show()
+    st.pyplot()
 
 # 사용 예:
 #tower_results = tower_preference_percentage(data, 'ViV Esport')
@@ -534,7 +527,7 @@ def visualize_team_kda(kda_results, teamname):
     plt.xlabel('Time Period')
     plt.title(f'KDA Analysis for {teamname} at different time intervals')
     plt.tight_layout()
-    plt.show()
+    st.pyplot()
 
 # 사용 예:
 #kda_results = team_kda_percentage(data, 'beGenius ESC')
@@ -599,19 +592,20 @@ def visualize_team_champion_analysis(champion_data, teamname):
     champion_positions, champion_kda, result = champion_data
 
     # Top champions and their positions
+   # st.write("aaa")
     plt.figure(figsize=(10, 5))
     sns.barplot(x=champion_positions['champion'], y=champion_positions.index, hue=champion_positions['position'], dodge=False)
     plt.title(f'Top Champions and Their Positions for {teamname}')
     plt.ylabel('Champion')
     plt.xlabel('Number of Selections')
-    plt.show()
+    st.pyplot()
 
     # Top champion's average KDA
     plt.figure(figsize=(10, 5))
     sns.barplot(x=['Top Champion'], y=[champion_kda])
     plt.title(f"Top Champion's Average KDA for {teamname}")
     plt.ylabel('KDA')
-    plt.show()
+    st.pyplot()
 
     # Banned champions count vs. average KDA
     bans = list(result.keys())
@@ -621,7 +615,8 @@ def visualize_team_champion_analysis(champion_data, teamname):
     sns.barplot(x=bans, y=avg_kda, palette='viridis')
     plt.title(f'Banned Champions Count vs. Average KDA for {teamname}')
     plt.ylabel('Average KDA')
-    plt.show()
+    st.pyplot()
+    #st.write("bbb")
 
 # Usage:
 #champion_data = team_champion_analysis(data, 'beGenius ESC')
@@ -630,9 +625,11 @@ def visualize_team_champion_analysis(champion_data, teamname):
 
 def analyze_and_visualize(data, teamname):
     # 1. 팀 데이터 필터링
+    
     team_data = data[data['teamname'] == teamname]
     
     # 2. 9가지 분석 실행
+    
     ward_results = ward_patterns_percentage(data,teamname)
     game_length_win_rate_results = game_length_win_rate_percentage(data, teamname)
     first_objective_results = first_objectives_percentage(data, teamname)
@@ -644,29 +641,39 @@ def analyze_and_visualize(data, teamname):
     team_champion_results = team_champion_analysis(data, teamname)
     
     # 3. 시각화
+   # st.write("ward")
     visualize_ward_patterns(team_data,ward_results)
+   # st.write("len")
     visualize_game_length_win_rate(team_data,game_length_win_rate_results)
+   # st.write("obj")
     visualize_first_objectives(team_data,first_objective_results)
+   # st.write("obj_rate")
     visualize_first_objectives_win_rate(first_objective_win_rate_results,teamname)
+    #st.write("kill part")
     visualize_kill_participation(kill_participation_results,teamname)
+   # st.write("gold,xp")
     visualize_team_gold_and_xp_lead(team_gold_and_xp_results,teamname)
+   # st.write("tower")
     visualize_tower_preference(tower_preference_results,teamname)
+   # st.write("team kda")
     visualize_team_kda(team_kda_results,teamname)
+    #st.write("champ analysis")
     visualize_team_champion_analysis(team_champion_results,teamname)
 
     return
 
 
 # Streamlit app starts here
-st.title('Team Champion Analysis')
+st.title('Team Analysis')
 
-teamname = st.text_input('Enter the team name:', 'beGenius ESC')
+#teamname = st.text_input('Enter the team name:', 'beGenius ESC')
 #champion_positions, champion_kda, result = team_champion_analysis(data, teamname)
 # 사용자에게 팀 선택하도록 함
 selected_team = st.selectbox('Select a team:', team_list)
 
 # 선택한 팀에 대한 정보 표시 (이 부분은 원하는대로 추가/수정할 수 있습니다.)
 st.write(f"You selected {selected_team}")
+st.write(selected_team)
 if st.button('Analyze'):
-    analyze_and_visualize(data, teamname)
+    analyze_and_visualize(data, selected_team)
 
