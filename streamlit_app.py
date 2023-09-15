@@ -681,10 +681,12 @@ def analyze_and_visualize(data, teamname):
 st.title('Team Champion Analysis')
 
 teamname = st.text_input('Enter the team name:', 'beGenius ESC')
-
+#champion_positions, champion_kda, result = team_champion_analysis(data, teamname)
+analyze_and_visualize(data, teamname)
+'''
 if st.button('Analyze'):
     champion_positions, champion_kda, result = team_champion_analysis(data, teamname)
     st.write(f"Champion Positions: {champion_positions}")
     st.write(f"Champion KDA: {champion_kda}")
     st.write(f"Result: {result}")
-
+'''
