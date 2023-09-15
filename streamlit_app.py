@@ -10,6 +10,11 @@ uploaded_file = st.file_uploader("CSV 파일을 업로드하세요", type='csv')
 if uploaded_file is not None:
     data = pd.read_csv(uploaded_file)
 #data = pd.read_csv('2023_LoL_match_data.csv')
+team_list = data['teamname'].unique().tolist()
+# Streamlit 앱 시작
+st.title('Team Champion Analysis')
+
+
 
 def heatma(data):
     features = ['wardsplaced', 'wardskilled', 'gamelength', 'result', 
@@ -655,11 +660,11 @@ st.title('Team Champion Analysis')
 
 teamname = st.text_input('Enter the team name:', 'beGenius ESC')
 #champion_positions, champion_kda, result = team_champion_analysis(data, teamname)
-analyze_and_visualize(data, teamname)
-'''
+# 사용자에게 팀 선택하도록 함
+selected_team = st.selectbox('Select a team:', team_list)
+
+# 선택한 팀에 대한 정보 표시 (이 부분은 원하는대로 추가/수정할 수 있습니다.)
+st.write(f"You selected {selected_team}")
 if st.button('Analyze'):
-    champion_positions, champion_kda, result = team_champion_analysis(data, teamname)
-    st.write(f"Champion Positions: {champion_positions}")
-    st.write(f"Champion KDA: {champion_kda}")
-    st.write(f"Result: {result}")
-'''
+    analyze_and_visualize(data, teamname)
+
