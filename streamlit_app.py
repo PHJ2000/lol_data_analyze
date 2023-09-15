@@ -7,11 +7,16 @@ import scipy as sp
 import seaborn as sns
 # Load the data
 
-
-uploaded_file = st.file_uploader("CSV 파일을 업로드하세요", type='csv')
-if uploaded_file is not None:
-    data = pd.read_csv(uploaded_file)
-    team_list = data['teamname'].unique().tolist()
+data=pd.read_csv("2023_LoL_match_data.csv")
+#if data is None:
+#    uploaded_file = st.file_uploader("CSV 파일을 업로드하세요", type='csv')
+#    data = pd.read_csv(uploaded_file)
+#    team_list = data['teamname'].unique().tolist()
+team_list = data['teamname'].unique().tolist()
+#uploaded_file = st.file_uploader("CSV 파일을 업로드하세요", type='csv')
+#if uploaded_file is not None:
+#    data = pd.read_csv(uploaded_file)
+#    team_list = data['teamname'].unique().tolist()
 
 # Streamlit 앱 시작
 st.title('Team Champion Analysis')
