@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 import scipy as sp
 import seaborn as sns
 # Load the data
+
 uploaded_file = st.file_uploader("CSV 파일을 업로드하세요", type='csv')
 if uploaded_file is not None:
     data = pd.read_csv(uploaded_file)
