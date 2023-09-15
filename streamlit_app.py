@@ -1,7 +1,10 @@
 
 import streamlit as st
 import pandas as pd
-
+import numpy as np
+import matplotlib.pyplot as plt
+import scipy as sp
+import seaborn as sns
 # Load the data
 uploaded_file = st.file_uploader("CSV 파일을 업로드하세요", type='csv')
 if uploaded_file is not None:
@@ -25,14 +28,7 @@ def heatma(data):
     plt.show()
 
 
-'''
-특정 팀의 평균 와드 설치 수
-전체 팀의 평균 와드 설치 수
-특정 팀이 전체 중에서 와드 설치 수 기준 상위 몇 백분위에 위치하는지
-특정 팀의 평균 와드 제거 수
-전체 팀의 평균 와드 제거 수
-특정 팀이 전체 중에서 와드 제거 수 기준 상위 몇 백분위에 위치하는지
-'''
+
 def ward_patterns_percentage(data, teamname):
     team_data = data[data['teamname'] == teamname]
     
@@ -92,14 +88,7 @@ def visualize_ward_patterns(team_data, ward_results):
 #visualize_ward_patterns(team_data, ward_results)
 
 
-'''
-특정 팀의 짧은 게임 승률
-전체 팀의 짧은 게임 승률
-특정 팀이 전체 중에서 짧은 게임 승률 기준 상위 몇 백분위에 위치하는지
-특정 팀의 긴 게임 승률
-전체 팀의 긴 게임 승률
-특정 팀이 전체 중에서 긴 게임 승률 기준 상위 몇 백분위에 위치하는지
-'''
+
 def game_length_win_rate_percentage(data, teamname):
     team_data = data[data['teamname'] == teamname]
     
@@ -163,12 +152,7 @@ def visualize_game_length_win_rate(team_data, game_length_results):
 #visualize_game_length_win_rate(team_data, game_length_results)
 
 
-'''
-특정 팀의 첫 용 획득 수
-특정 팀이 전체 중에서 첫 용 획득 수 기준 상위 몇 백분위에 위치하는지
-특정 팀의 첫 바론 획득 수
-특정 팀이 전체 중에서 첫 바론 획득 수 기준 상위 몇 백분위에 위치하는지
-'''
+
 
 def first_objectives_percentage(data, teamname):
     team_data = data[data['teamname'] == teamname]
@@ -223,14 +207,7 @@ def visualize_first_objectives(team_data, objectives_results):
 #visualize_first_objectives(team_data, objectives_results)
 
 
-'''
-특정 팀의 첫 용 획득 시의 승률
-특정 팀이 전체 중에서 첫 용 획득 시의 승률 기준 상위 몇 백분위에 위치하는지
-특정 팀의 첫 바론 획득 시의 승률
-특정 팀이 전체 중에서 첫 바론 획득 시의 승률 기준 상위 몇 백분위에 위치하는지
-특정 팀의 첫 타워 획득 시의 승률
-특정 팀이 전체 중에서 첫 타워 획득 시의 승률 기준 상위 몇 백분위에 위치하는지
-'''
+
 def first_objectives_win_rate_percentage(data, teamname):
     team_data = data[data['teamname'] == teamname]
     
@@ -300,10 +277,6 @@ def visualize_first_objectives_win_rate(objectives_win_rate_results, teamname):
 
     fig.tight_layout()
     plt.show()
-
-# 사용 예:
-#objectives_win_rate_results = first_objectives_win_rate_percentage(data, 'MS Company')
-#visualize_first_objectives_win_rate(objectives_win_rate_results, 'MS Company')
 
 
 
